@@ -10,7 +10,7 @@ app.post("/add", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    if (email || password) {
+    if (!email || !password) {
       return res.status(401).json({ message: "email o contraseña no fueron proporcionados" });
     }
 
