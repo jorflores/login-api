@@ -6,12 +6,12 @@ require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGO_DB =process.env.MONGO_DB || "mongodb://127.0.0.1:27017/api_login_android";
+const MONGO_DB =
+  process.env.MONGO_DB || "mongodb://127.0.0.1:27017/api_login_android";
 dbConnect();
 
 app.use(express.json());
 app.use("/api/users", userRoutes);
-
 
 app.listen(PORT, () => {
   console.log(`Servidor de NodeJS en el puerto: ${PORT}`);
@@ -24,5 +24,5 @@ function dbConnect() {
     console.log(`Conectado a instancia local de MongoDB : ${MONGO_DB}`);
   }
 
-  mongoose.connect(MONGO_DB).then(() => console.log("Conexión exitosa!"));
+  mongoose.connect(MONGO_DB).then(() => console.log("Conexión exitosa!!"));
 }

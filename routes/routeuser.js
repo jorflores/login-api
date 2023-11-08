@@ -11,7 +11,9 @@ app.post("/add", async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(401).json({ message: "email o contraseña no fueron proporcionados" });
+      return res
+        .status(401)
+        .json({ message: "email o contraseña no fueron proporcionados" });
     }
 
     const existingUser = await User.findOne({ email });
@@ -44,22 +46,22 @@ app.post("/login", async (req, res) => {
 
     // Revisamos si el usuario no existe y si la contraseña no es la misma
     if (!user || !bcrypt.compareSync(password, user.password)) {
-      return res.status(401).json({ message: "Credenciales incorrectas", login: false, token:{} });
+      return res
+        .status(401)
+        .json({ message: "Credenciales incorrectas", login: false, token: {} });
     }
 
     // Generamos el token
-    const token = jwt.sign(
-      { phoneNumber: user.phoneNumber, userId: user._id },
-      "your-secret-key",
-      {
-        expiresIn: "1h",
-      }
-    );
+    const token = jwt.sign({ phoneNumber: user.email }, "your-secret-key", {
+      expiresIn: "1h",
+    });
 
-    res.status(200).json({message:"Login exitoso", login: true, token: token });
+    res
+      .status(200)
+      .json({ message: "Login exitoso", login: true, token: token });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error", login: false,token:{} });
+    res.status(500).json({ message: "Error", login: false, token: {} });
   }
 });
 
@@ -67,7 +69,5 @@ app.get("/protected", verifyToken, (req, res) => {
   console.log(req.user.userId);
   res.status(200).json({ message: "Acceso permitido", login: true });
 });
-
-
 
 module.exports = app;
