@@ -46,9 +46,11 @@ app.post("/login", async (req, res) => {
 
     // Revisamos si el usuario no existe y si la contraseña no es la misma
     if (!user || !bcrypt.compareSync(password, user.password)) {
-      return res
-        .status(401)
-        .json({ message: "Credenciales incorrectas", login: false, token: {} });
+      return res.json({
+        message: "Credenciales incorrectas",
+        login: false,
+        token: {},
+      });
     }
 
     // Generamos el token
