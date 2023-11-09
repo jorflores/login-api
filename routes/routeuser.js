@@ -49,7 +49,7 @@ app.post("/login", async (req, res) => {
       return res.json({
         message: "Credenciales incorrectas",
         login: false,
-        token: {},
+        token: "",
       });
     }
 
